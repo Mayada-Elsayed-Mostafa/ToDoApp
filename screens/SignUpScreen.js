@@ -1,36 +1,51 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView, Dimensions } from "react-native";
+import { CheckBox } from 'react-native-elements';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
 export default function SignupScreen({ navigation }) {
+    const [isChecked, setIsChecked] = useState(false);
+
     return (
         <ScrollView contentContainerStyle={styles.scrollContainer}>
             <View style={styles.container}>
                 <View style={styles.content}>
                     <Image source={require('../assets/logo-image.png')} style={styles.image} />
                     <Text style={styles.title}>Create your account</Text>
-                    <Text style={styles.regularText}>Full Name</Text>
+                    <Text style={styles.label}>Full Name</Text>
                     <TextInput style={styles.input} />
-                    <Text style={styles.regularText}>Email Address</Text>
+                    <Text style={styles.label}>Email Address</Text>
                     <TextInput style={styles.input} keyboardType="email-address" />
-                    <Text style={styles.regularText}>Password</Text>
+                    <Text style={styles.label}>Password</Text>
                     <TextInput style={styles.input} keyboardType="visible-password" />
                     <View style={styles.agreement}>
-                        <Text style={styles.agreementText}>I have read & agreed to DayTask Privacy Policy, Terms & Condition</Text>
+                        <CheckBox
+                            title="I have read & agreed to DayTask Privacy Policy, Terms & Conditions"
+                            checked={isChecked}
+                            onPress={() => setIsChecked(!isChecked)}
+                            containerStyle={styles.checkboxContainer}
+                            textStyle={styles.agreementText}
+                        />
                     </View>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProfileScreen')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
-                <View style={styles.row}>
+                <View style={styles.divider}>
                     <View style={styles.line}></View>
                     <Text style={styles.orText}>Or continue with</Text>
                     <View style={styles.line}></View>
                 </View>
-                <Text style={[styles.regularText, styles.centerText]}>Google</Text>
-                <Text style={[styles.regularText, styles.centerText]}>Already have an account? Log In</Text>
+                <Text style={[styles.label, styles.centerText]}>Google</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Text style={[styles.label]}>Already have an account?{' '}</Text>
+                    <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
+                        <Text style={[styles.label, styles.linkText]}>Log In</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
         </ScrollView>
     );
@@ -72,19 +87,25 @@ const styles = StyleSheet.create({
         marginBottom: windowHeight * 0.015,
         textAlign: 'center',
     },
-    regularText: {
+    label: {
         fontSize: windowWidth * 0.04,
         color: '#333',
         marginStart: windowWidth * 0.01,
     },
     agreement: {
-        width: '90%',
+        width: '100%',
         alignSelf: 'center',
         marginVertical: windowHeight * 0.02,
     },
     agreementText: {
         fontSize: windowWidth * 0.035,
         color: '#555',
+    },
+    checkboxContainer: {
+        backgroundColor: 'transparent',
+        borderWidth: 0,
+        padding: 0,
+        margin: 0,
     },
     button: {
         backgroundColor: '#5cb85c',
@@ -100,6 +121,11 @@ const styles = StyleSheet.create({
         fontSize: windowWidth * 0.05,
         fontWeight: 'bold',
     },
+    divider: {
+        flexDirection: 'row',
+        alignItems: "center",
+        marginVertical: windowHeight * 0.02,
+    },
     line: {
         borderBottomColor: '#888',
         borderBottomWidth: 1,
@@ -111,12 +137,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 10,
         color: '#888',
     },
-    row: {
-        flexDirection: 'row',
-        alignItems: "center",
-        marginVertical: windowHeight * 0.02,
-    },
     centerText: {
         alignSelf: 'center'
+    },
+    linkText: {
+        color: '#5cb85c',
     }
 });
