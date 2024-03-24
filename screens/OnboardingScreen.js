@@ -10,7 +10,7 @@ const OnboardingScreen = ({ navigation }) => {
                 <Image source={require('../assets/onboarding-image.png')} style={styles.image} />
                 <Text style={styles.description}>Organize your tasks and boost your productivity!</Text>
             </View>
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('LoginScreen')}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignupScreen')}>
                 <Text style={styles.buttonText}>Get Started</Text>
             </TouchableOpacity>
         </View>
