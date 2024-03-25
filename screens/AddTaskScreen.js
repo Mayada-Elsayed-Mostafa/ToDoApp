@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         textAlignVertical: 'top', // for multiline input
     },
     button: {
-        backgroundColor: 'blue',
+        backgroundColor: '#5cb85c',
         width: '100%',
         padding: 15,
         marginBottom: 24,
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     buttonText: {
-        color: 'white',
+        color: '#fff',
         fontSize: 18,
     },
 });
