@@ -14,28 +14,28 @@ export default function ProfileScreen() {
 
                 <View style={styles.section}>
                     <View style={styles.row}>
-                        <Image source={require('../assets/profile-icon.png')} style={styles.rightIcon}/>
+                        <Image source={require('../assets/profile-icon.png')} style={styles.rightIcon} />
                         <Text style={styles.contentText}>Mayada Elsayed</Text>
-                        <Image source={require('../assets/edit-icon.png')} style={styles.leftIcon}/>
+                        <Image source={require('../assets/edit-icon.png')} style={styles.leftIcon} />
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/email-icon.png')} style={styles.rightIcon}/>
+                        <Image source={require('../assets/email-icon.png')} style={styles.rightIcon} />
                         <Text style={styles.contentText}>MayadaElsayed@gmail.com</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/password-icon.png')} style={styles.rightIcon}/>
+                        <Image source={require('../assets/password-icon.png')} style={styles.rightIcon} />
                         <Text style={styles.contentText}>********</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/my-tasks-icon.png')} style={styles.rightIcon}/>
+                        <Image source={require('../assets/my-tasks-icon.png')} style={styles.rightIcon} />
                         <Text style={styles.contentText}>My Tasks</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/privacy-icon.png')} style={styles.rightIcon}/>
+                        <Image source={require('../assets/privacy-icon.png')} style={styles.rightIcon} />
                         <Text style={styles.contentText}>Privacy</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/setting-icon.png')} style={styles.rightIcon}/>
+                        <Image source={require('../assets/setting-icon.png')} style={styles.rightIcon} />
                         <Text style={styles.contentText}>Setting</Text>
                     </View>
                 </View>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         borderRadius: windowWidth * 0.15,
         marginTop: windowHeight * 0.05,
         borderWidth: 4,
-        borderColor: '#fff', // Change border color to white
+        borderColor: '#fff',
         alignSelf: "center"
     },
     profileInfo: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
         padding: 8,
-        backgroundColor: '#e3f2fd', // Change background color to light gray
+        backgroundColor: '#e3f2fd',
     },
     contentText: {
         fontSize: 16,
@@ -106,12 +106,15 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     button: {
-        backgroundColor: '#dc3545', // Change button color to red
+        backgroundColor: '#dc3545',
         paddingVertical: 12,
         paddingHorizontal: 30,
         borderRadius: 5,
         width: '100%',
+        bottom: 0,
         alignSelf: "center",
+        position: "absolute"
+
     },
     buttonText: {
         color: '#fff',

@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-export default function WelcomeScreen() {
+export default function CalendarScreen() {
     return (
         <View>
-            <Text>WelcomeScreen</Text>
+            <Text>Calendar</Text>
         </View>
     );
 }

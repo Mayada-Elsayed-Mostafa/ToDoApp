@@ -30,7 +30,7 @@ export default function SignupScreen({ navigation }) {
                         />
                     </View>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('HomeScreen')}>
+                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProfileScreen')}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
                 <View style={styles.divider}>
