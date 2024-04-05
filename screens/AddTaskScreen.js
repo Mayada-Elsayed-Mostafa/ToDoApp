@@ -5,7 +5,7 @@ import * as SQLite from 'expo-sqlite';
 
 const db = SQLite.openDatabase('tasks.db');
 
-export default function AddTaskScreen({navigation}) {
+export default function AddTaskScreen({ navigation }) {
 
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
