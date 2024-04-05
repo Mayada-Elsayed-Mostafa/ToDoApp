@@ -12,6 +12,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Try from './try';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -26,8 +27,8 @@ function HomeTabs() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="home" color={color} size={size} /> // Example icon
           ),
-          headerTitle:'Home',
-          headerTitleAlign:'center'
+          headerTitle: 'Home',
+          headerTitleAlign: 'center'
         }}
       />
       <Tab.Screen
@@ -37,8 +38,8 @@ function HomeTabs() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="calendar" color={color} size={size} /> // Example icon
           ),
-          headerTitle:'Calendar',
-          headerTitleAlign:'center'
+          headerTitle: 'Calendar',
+          headerTitleAlign: 'center'
         }}
       />
       <Tab.Screen
@@ -48,8 +49,8 @@ function HomeTabs() {
           tabBarIcon: ({ color, size }) => (
             <FontAwesome5 name="plus" color={color} size={size} /> // Example icon
           ),
-          headerTitle:'Create New Task',
-          headerTitleAlign:'center'
+          headerTitle: 'Create New Task',
+          headerTitleAlign: 'center'
         }}
       />
       <Tab.Screen
@@ -60,8 +61,8 @@ function HomeTabs() {
             <FontAwesome5 name="bell" color={color} size={size} />
           ),
           tabBarBadge: 3,
-          headerTitle:'Notifications',
-          headerTitleAlign:'center'
+          headerTitle: 'Notifications',
+          headerTitleAlign: 'center'
         }}
 
       />

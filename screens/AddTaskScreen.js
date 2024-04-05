@@ -1,14 +1,26 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
+import * as SQLite from 'expo-sqlite';
 
-const AddTaskScreen = () => {
+const db = SQLite.openDatabase('tasks.db');
+
+export default function AddTaskScreen({navigation}) {
+
     const [taskTitle, setTaskTitle] = useState("");
     const [taskDescription, setTaskDescription] = useState("");
     const [date, setDate] = useState(new Date());
     const [time, setTime] = useState(new Date());
     const [showDatePicker, setShowDatePicker] = useState(false);
     const [showTimePicker, setShowTimePicker] = useState(false);
+
+    useEffect(() => {
+        db.transaction(tx => {
+            tx.executeSql(
+                'CREATE TABLE IF NOT EXISTS tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, description TEXT, date TEXT, time TEXT);'
+            );
+        });
+    }, []);
 
     const handleDateChange = (event, selectedDate) => {
         const currentDate = selectedDate || date;
@@ -23,7 +35,26 @@ const AddTaskScreen = () => {
     };
 
     const handleCreateTask = () => {
-        // Handle task creation
+        db.transaction(tx => {
+            tx.executeSql(
+                'INSERT INTO tasks (title, description, date, time) VALUES (?, ?, ?, ?)',
+                [taskTitle, taskDescription, date.toISOString(), time.toISOString()],
+                (_, { rowsAffected }) => {
+                    if (rowsAffected > 0) {
+                        console.log('Task created successfully');
+                        setTaskTitle("");
+                        setTaskDescription("");
+                        setDate(new Date());
+                        setTime(new Date());
+                    } else {
+                        console.log('Failed to create task');
+                    }
+                },
+                (_, error) => {
+                    console.error('Error inserting task:', error);
+                }
+            );
+        });
     };
 
     return (
@@ -69,7 +100,12 @@ const AddTaskScreen = () => {
                 />
             )}
 
-            <TouchableOpacity style={styles.button} onPress={handleCreateTask}>
+            <TouchableOpacity
+                style={styles.button} onPress={() => {
+                    handleCreateTask();
+                    Alert.alert("Task created successfully");
+                    navigation.navigate('Home');
+                }}>
                 <Text style={styles.buttonText}>Create</Text>
             </TouchableOpacity>
         </View>
@@ -104,7 +140,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#5cb85c',
         width: '100%',
         padding: 15,
-        marginBottom: 24,
+        marginVertical: 18,
         borderRadius: 5,
         alignItems: 'center',
         alignSelf: "center",
@@ -128,5 +164,3 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
 });
-
-export default AddTaskScreen;
