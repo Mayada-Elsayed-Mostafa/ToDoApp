@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { View, Text, TextInput, Pressable, StyleSheet, Alert } from "react-native";
 import DateTimePicker from '@react-native-community/datetimepicker';
 import * as SQLite from 'expo-sqlite';
 
@@ -74,9 +74,9 @@ export default function AddTaskScreen({navigation}) {
                 onChangeText={setTaskDescription}
             />
             <Text style={[styles.label, { color: 'black' }]}>Select Date:</Text>
-            <TouchableOpacity style={styles.dateButton} onPress={() => setShowDatePicker(true)}>
+            <Pressable style={styles.dateButton} onPress={() => setShowDatePicker(true)}>
                 <Text style={styles.buttonText}>{date.toDateString()}</Text>
-            </TouchableOpacity>
+            </Pressable>
             {showDatePicker && (
                 <DateTimePicker
                     value={date}
@@ -87,9 +87,9 @@ export default function AddTaskScreen({navigation}) {
             )}
 
             <Text style={[styles.label, { color: 'black' }]}>Select Time:</Text>
-            <TouchableOpacity style={styles.timeButton} onPress={() => setShowTimePicker(true)}>
+            <Pressable style={styles.timeButton} onPress={() => setShowTimePicker(true)}>
                 <Text style={styles.buttonText}>{time.toLocaleTimeString()}</Text>
-            </TouchableOpacity>
+            </Pressable>
 
             {showTimePicker && (
                 <DateTimePicker
@@ -100,14 +100,14 @@ export default function AddTaskScreen({navigation}) {
                 />
             )}
 
-            <TouchableOpacity
+            <Pressable
                 style={styles.button} onPress={() => {
                     handleCreateTask();
                     Alert.alert("Task created successfully");
                     navigation.navigate('Home');
                 }}>
                 <Text style={styles.buttonText}>Create</Text>
-            </TouchableOpacity>
+            </Pressable>
         </View>
     );
 }
