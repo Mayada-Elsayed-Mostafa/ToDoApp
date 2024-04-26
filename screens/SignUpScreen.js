@@ -1,26 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import { CheckBox } from 'react-native-elements';
 
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
-
 export default function SignupScreen({ navigation }) {
     const [isChecked, setIsChecked] = useState(false);
+    const [dimensions, setDimensions] = useState({ window: Dimensions.get('window') });
+    useEffect(() => {
+        const subscription = Dimensions.addEventListener("change", ({ window }) => {
+            setDimensions({ window });
+        });
+        return () => subscription?.remove();
+    });
+
+    const { window } = dimensions;
+    const windowWidth = window.width;
+    const windowHeight = window.height;
 
     return (
-        <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <ScrollView contentContainerStyle={[styles.scrollContainer, { paddingVertical: windowHeight * 0.02 }]}>
             <View style={styles.container}>
                 <View style={styles.content}>
-                    <Image source={require('../assets/logo-image.png')} style={styles.image} />
-                    <Text style={styles.title}>Create your account</Text>
-                    <Text style={styles.label}>Full Name</Text>
-                    <TextInput style={styles.input} />
-                    <Text style={styles.label}>Email Address</Text>
-                    <TextInput style={styles.input} keyboardType="email-address" />
-                    <Text style={styles.label}>Password</Text>
-                    <TextInput style={styles.input} keyboardType="visible-password" />
-                    <View style={styles.agreement}>
+                    <Image source={require('../assets/logo-image.png')} style={[styles.image, { width: windowWidth * 0.4, height: windowHeight * 0.2 }]} />
+                    <Text style={[styles.title, { fontSize: windowWidth * 0.08, marginBottom: windowHeight * 0.015 }]}>Create your account</Text>
+                    <Text style={[styles.label, { fontSize: windowWidth * 0.04, marginStart: windowWidth * 0.01 }]}>Full Name</Text>
+                    <TextInput style={[styles.input, { height: windowHeight * 0.06, marginVertical: windowHeight * 0.015 }]} />
+                    <Text style={[styles.label, { fontSize: windowWidth * 0.04, marginStart: windowWidth * 0.01 }]}>Email Address</Text>
+                    <TextInput style={[styles.input, { height: windowHeight * 0.06, marginVertical: windowHeight * 0.015 }]} keyboardType="email-address" />
+                    <Text style={[styles.label, { fontSize: windowWidth * 0.04, marginStart: windowWidth * 0.01 }]}>Password</Text>
+                    <TextInput style={[styles.input, { height: windowHeight * 0.06, marginVertical: windowHeight * 0.015 }]} keyboardType="visible-password" />
+                    <View style={[styles.agreement, { marginVertical: windowHeight * 0.02 }]}>
                         <CheckBox
                             title="I have read & agreed to DayTask Privacy Policy, Terms & Conditions"
                             checked={isChecked}
@@ -30,19 +38,19 @@ export default function SignupScreen({ navigation }) {
                         />
                     </View>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('ProfileScreen')}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
+                <TouchableOpacity style={[styles.button, { paddingVertical: windowHeight * 0.015, marginVertical: windowHeight * 0.03 }]} onPress={() => navigation.navigate('ProfileScreen')}>
+                    <Text style={[styles.buttonText, { fontSize: windowWidth * 0.05 }]}>Sign Up</Text>
                 </TouchableOpacity>
-                <View style={styles.divider}>
-                    <View style={styles.line}></View>
-                    <Text style={styles.orText}>Or continue with</Text>
-                    <View style={styles.line}></View>
+                <View style={[styles.divider, { marginVertical: windowHeight * 0.02 }]}>
+                    <View style={[styles.line, { marginVertical: windowHeight * 0.01 }]}></View>
+                    <Text style={[styles.orText, { fontSize: windowWidth * 0.045, marginHorizontal: 10 }]}>Or continue with</Text>
+                    <View style={[styles.line, { marginVertical: windowHeight * 0.01 }]}></View>
                 </View>
-                <Text style={[styles.label, styles.centerText]}>Google</Text>
+                <Text style={[styles.label, styles.centerText, { color: '#5cb85c' }]}>Google</Text>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <Text style={[styles.label]}>Already have an account?{' '}</Text>
+                    <Text style={[styles.label, { fontSize: windowWidth * 0.04 }]}>Already have an account?{' '}</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
-                        <Text style={[styles.label, styles.linkText]}>Log In</Text>
+                        <Text style={[styles.label, styles.linkText, { fontSize: windowWidth * 0.04 }]}>Log In</Text>
                     </TouchableOpacity>
                 </View>
 
@@ -55,7 +63,6 @@ const styles = StyleSheet.create({
     scrollContainer: {
         flexGrow: 1,
         justifyContent: 'space-between',
-        paddingVertical: 8,
         backgroundColor: '#fff',
     },
     container: {
@@ -64,41 +71,29 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     content: {
-        marginVertical: windowHeight * 0.03,
-        paddingHorizontal: windowWidth * 0.05,
+        paddingHorizontal: '5%',
         width: '100%'
     },
     image: {
-        width: windowWidth * 0.4,
-        height: windowHeight * 0.2,
         resizeMode: 'contain',
         alignSelf: "center"
     },
     input: {
-        height: windowHeight * 0.06,
-        width: '100%',
-        marginVertical: windowHeight * 0.015,
         borderWidth: 1,
         padding: 10,
     },
     title: {
-        fontSize: windowWidth * 0.08,
         fontWeight: 'bold',
-        marginBottom: windowHeight * 0.015,
         textAlign: 'center',
     },
     label: {
-        fontSize: windowWidth * 0.04,
         color: '#333',
-        marginStart: windowWidth * 0.01,
     },
     agreement: {
         width: '100%',
         alignSelf: 'center',
-        marginVertical: windowHeight * 0.02,
     },
     agreementText: {
-        fontSize: windowWidth * 0.035,
         color: '#555',
     },
     checkboxContainer: {
@@ -109,32 +104,25 @@ const styles = StyleSheet.create({
     },
     button: {
         backgroundColor: '#5cb85c',
-        paddingVertical: windowHeight * 0.015,
         width: '85%',
         paddingHorizontal: 30,
-        marginVertical: windowHeight * 0.03,
         borderRadius: 5,
         alignItems: 'center'
     },
     buttonText: {
         color: '#fff',
-        fontSize: windowWidth * 0.05,
         fontWeight: 'bold',
     },
     divider: {
         flexDirection: 'row',
         alignItems: "center",
-        marginVertical: windowHeight * 0.02,
     },
     line: {
         borderBottomColor: '#888',
         borderBottomWidth: 1,
         width: '25%',
-        marginVertical: windowHeight * 0.01,
     },
     orText: {
-        fontSize: windowWidth * 0.045,
-        marginHorizontal: 10,
         color: '#888',
     },
     centerText: {
