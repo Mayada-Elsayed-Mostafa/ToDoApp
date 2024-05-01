@@ -1,52 +1,43 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { Dimensions } from 'react-native';
-
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import React from "react";
+import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, useWindowDimensions } from "react-native";
 
 export default function ProfileScreen() {
 
-    const [dimensions, setDimensions] = useState({ window: Dimensions.get('window') });
-    useEffect(() => {
-        const subscription = Dimensions.addEventListener("change", ({ window }) => {
-            setDimensions({ window });
-        });
-        return () => subscription?.remove();
-    });
-
-    const { window } = dimensions;
-
+    const windowWidth = useWindowDimensions().width;
+    const windowHeight = useWindowDimensions().height;
     return (
         <ScrollView contentContainerStyle={[styles.scrollContainer, { paddingVertical: windowHeight * 0.02 }]}>
             <View style={styles.container}>
-                <Image style={styles.profileImage} source={require('../assets/profile-image.png')} />
-                
-                {/* Signup-like content starts here */}
+                <Image style={[styles.profileImage, {
+                    width: windowWidth * 0.3, height: windowWidth * 0.3,
+                    borderRadius: windowWidth * 0.15,
+                    marginTop: windowHeight * 0.05,
+                }]} source={require('../assets/profile-image.png')} />
+
                 <View style={styles.content}>
                     <View style={styles.row}>
                         <Image source={require('../assets/profile-icon.png')} style={styles.rightIcon} />
                         <Text style={styles.contentText}>Mayada Elsayed</Text>
-                        <Image source={require('../assets/edit-icon.png')} style={styles.leftIcon} />
+                        <Image source={require('../assets/edit-icon.png')} style={[styles.leftIcon, { height: windowHeight * 0.05, }]} />
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/email-icon.png')} style={styles.rightIcon} />
+                        <Image source={require('../assets/email-icon.png')} style={[styles.rightIcon, {height: windowHeight * 0.05}]} />
                         <Text style={styles.contentText}>MayadaElsayed@gmail.com</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/password-icon.png')} style={styles.rightIcon} />
+                        <Image source={require('../assets/password-icon.png')} style={[styles.rightIcon, {height: windowHeight * 0.05}]} />
                         <Text style={styles.contentText}>********</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/my-tasks-icon.png')} style={styles.rightIcon} />
+                        <Image source={require('../assets/my-tasks-icon.png')} style={[styles.rightIcon, {height: windowHeight * 0.05}]} />
                         <Text style={styles.contentText}>My Tasks</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/privacy-icon.png')} style={styles.rightIcon} />
+                        <Image source={require('../assets/privacy-icon.png')} style={[styles.rightIcon, {height: windowHeight * 0.05}]} />
                         <Text style={styles.contentText}>Privacy</Text>
                     </View>
                     <View style={styles.row}>
-                        <Image source={require('../assets/setting-icon.png')} style={styles.rightIcon} />
+                        <Image source={require('../assets/setting-icon.png')} style={[styles.rightIcon, {height: windowHeight * 0.05}]} />
                         <Text style={styles.contentText}>Setting</Text>
                     </View>
                 </View>
@@ -76,14 +67,9 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     rightIcon: {
-        height: windowHeight * 0.05,
         resizeMode: 'contain',
     },
     profileImage: {
-        width: windowWidth * 0.3,
-        height: windowWidth * 0.3,
-        borderRadius: windowWidth * 0.15,
-        marginTop: windowHeight * 0.05,
         borderWidth: 4,
         borderColor: '#fff',
         alignSelf: "center"
@@ -103,7 +89,6 @@ const styles = StyleSheet.create({
     leftIcon: {
         position: 'absolute',
         right: 0,
-        height: windowHeight * 0.05,
         resizeMode: 'contain',
     },
     button: {

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Image, StyleSheet, Text, TextInput, TouchableOpacity, ScrollView, Dimensions } from "react-native";
 import { CheckBox } from 'react-native-elements';
 
+
 export default function SignupScreen({ navigation }) {
     const [isChecked, setIsChecked] = useState(false);
     const [dimensions, setDimensions] = useState({ window: Dimensions.get('window') });
