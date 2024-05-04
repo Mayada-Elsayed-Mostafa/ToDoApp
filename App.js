@@ -12,7 +12,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Try from './try';
+import { SafeAreaView } from 'react-native';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -72,14 +72,17 @@ function HomeTabs() {
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="OnboardingScreen" screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="SignupScreen" component={SignupScreen} />
-        <Stack.Screen name="HomeScreen" component={HomeTabs} />
-        <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaView style={{ flex: 1 }}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="OnboardingScreen" screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="SignupScreen" component={SignupScreen} />
+          <Stack.Screen name="HomeScreen" component={HomeTabs} />
+          <Stack.Screen name="ProfileScreen" component={ProfileScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
+
   );
 }

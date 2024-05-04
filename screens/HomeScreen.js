@@ -59,14 +59,13 @@ const HomeScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 20,
-        paddingVertical: 18,
         backgroundColor: 'white',
     },
     taskItem: {
         borderRadius: 8,
         backgroundColor: '#5cb85c',
         padding: 10,
+        marginHorizontal: 14,
         marginBottom: 10,
     },
     regularText: {
